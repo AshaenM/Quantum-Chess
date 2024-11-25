@@ -34,6 +34,10 @@ The Quantum Chess Project is an innovative take on the classic chess game, integ
 - 4: Set Collapse Method to Deterministic Collapse
 - 5: Set Collapse Method to Probability Based Collapse
 
+# Future Enhancements
+- Tutorials for players
+- AI bots to play against
+
 # Acknowledgements
 - Inspired by the Quantum Mechanics Game: https://quantumrealmgames.com/play/
 - Piece images creator: https://github.com/plemaster01
