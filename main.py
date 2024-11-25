@@ -2,7 +2,7 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'hide'  # Hides welcome message of pygame
 import pygame
 from settings.config import WIDTH, HEIGHT, COLOUR_NAMES
-from pygame_manager.pygame_manager import clock
+from pygame_manager.pygame_manager import clock, game_over_font as font
 from data.board.quantumboard import QuantumBoard
 from utils.utils import load_images
 
@@ -40,6 +40,8 @@ def main():
             board.ui_handler.get_available_moves_for_selected_piece()
         if board.display_indexes:
             board.ui_handler.draw_indexes()
+        if not board.possible_moves:
+            handle_game_over(screen, board)
             
         pygame.display.flip()
         clock.tick(60)
@@ -75,5 +77,20 @@ def handle_mouse_click(event, board):
     elif event.button == 3 and board.selected_piece is not None: # Middle Mouse click to merge superposed pieces
         board.mouse_click_handler.handle_right_click(x, y)
         
+def handle_game_over(screen, board):
+    """Handles the game over display"""
+    
+    winner = "White" if board.current_player == "b" else "Black"
+    text1 = "Game over!"
+    text_surface1 = font.render(text1, True, COLOUR_NAMES["RED"])
+    text2 = f"{winner} is the winner!"
+    text_surface2 = font.render(text2, True, COLOUR_NAMES["RED"])
+    
+    text1_rect = text_surface1.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+    text2_rect = text_surface2.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+    
+    screen.blit(text_surface1, text1_rect.topleft)
+    screen.blit(text_surface2, text2_rect.topleft)
+
 if __name__ == "__main__":
     main()

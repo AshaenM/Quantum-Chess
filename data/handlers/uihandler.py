@@ -1,5 +1,5 @@
 import pygame
-from pygame_manager.pygame_manager import font
+from pygame_manager.pygame_manager import symbol_font as font
 from settings.config import SQUARE_SIZE, BOARD_SIZE, GAP_X, GAP_Y
 from settings.config import COLOUR_NAMES
 
