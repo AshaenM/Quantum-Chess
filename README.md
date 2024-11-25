@@ -21,9 +21,19 @@ The Quantum Chess Project is an innovative take on the classic chess game, integ
 - Left click a piece and then right click on 2 squares to superpose it
 - Middle Click 2 superposed pieces and then left click on a square to merge them.
 
+# Rules
+- A piece can have upto 4 superposed states on the board at the same time.
+- Pieces can be merged only if they have 2 states on the board and a common square to move to.
+- Pawns cannot be superposed or capture superposed pieces.
+- Win is determined by checkmating the opponent.
+
 # Key presses
 - 1: Set Collapse Method to Random Collapse
 - 2: Set Collapse Method to Proximity Collapse
 - 3: Set Collapse Method to Entropy Collapse
 - 4: Set Collapse Method to Deterministic Collapse
 - 5: Set Collapse Method to Probability Based Collapse
+
+# Acknowledgements
+- Inspired by the Quantum Mechanics Game: https://quantumrealmgames.com/play/
+- Piece images creator: https://github.com/plemaster01
