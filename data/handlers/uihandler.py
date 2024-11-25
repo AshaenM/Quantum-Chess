@@ -1,6 +1,6 @@
 import pygame
-from pygame_manager.pygame_manager import symbol_font as font
-from settings.config import SQUARE_SIZE, BOARD_SIZE, GAP_X, GAP_Y
+from pygame_manager.pygame_manager import symbol_font, game_over_font
+from settings.config import WIDTH, HEIGHT, SQUARE_SIZE, BOARD_SIZE, GAP_X, GAP_Y
 from settings.config import COLOUR_NAMES
 
 class UIHandler:
@@ -28,8 +28,8 @@ class UIHandler:
 
         # Draw rank and file labels along the edges
         for i in range(8):
-            rank_text = font.render(str(8 - i), True, COLOUR_NAMES["WHITE"])
-            file_text = font.render(chr(ord('a') + i), True, COLOUR_NAMES["WHITE"])           
+            rank_text = symbol_font.render(str(8 - i), True, COLOUR_NAMES["WHITE"])
+            file_text = symbol_font.render(chr(ord('a') + i), True, COLOUR_NAMES["WHITE"])           
             # Display rank on the left
             self.screen.blit(rank_text, (GAP_X - 20, GAP_Y + i * SQUARE_SIZE + SQUARE_SIZE // 2 - rank_text.get_height() // 2))
             # Display file at the bottom
@@ -41,7 +41,7 @@ class UIHandler:
         #Draw the indexes of each box if toggled. (Press 'i')
         if self.board.display_indexes:
             for square in self.board.squares:
-                idx_text = font.render(str(square.idx), True, COLOUR_NAMES["RED"])
+                idx_text = symbol_font.render(str(square.idx), True, COLOUR_NAMES["RED"])
                 text_rect = idx_text.get_rect(center=(GAP_X + square.x * SQUARE_SIZE + SQUARE_SIZE // 2, GAP_Y + (7 - square.y) * SQUARE_SIZE + SQUARE_SIZE // 2))
                 self.screen.blit(idx_text, text_rect)
                 
@@ -92,4 +92,19 @@ class UIHandler:
             for piece in self.board.merging_pieces:
                 # Draw a border
                 pygame.draw.rect(self.screen, COLOUR_NAMES["LIGHT_WHITE"], (GAP_X + piece.square.x * SQUARE_SIZE, GAP_Y + (7 - piece.square.y) * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 3)
+                
+    def draw_game_over(self, screen, board):
+        """Handles the game over display"""
+        
+        winner = "White" if board.current_player == "b" else "Black"
+        text1 = "Game over!"
+        text_surface1 = game_over_font.render(text1, True, COLOUR_NAMES["RED"])
+        text2 = f"{winner} is the winner!"
+        text_surface2 = game_over_font.render(text2, True, COLOUR_NAMES["RED"])
+        
+        text1_rect = text_surface1.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+        text2_rect = text_surface2.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+        
+        screen.blit(text_surface1, text1_rect.topleft)
+        screen.blit(text_surface2, text2_rect.topleft)
     
